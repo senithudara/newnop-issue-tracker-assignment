@@ -30,7 +30,7 @@ const IssueDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-transparent p-8">
       <div className="max-w-2xl mx-auto">
         <button
           onClick={() => navigate("/dashboard")}

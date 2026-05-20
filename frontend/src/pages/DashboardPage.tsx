@@ -102,11 +102,14 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-transparent">
       {/* Navbar */}
       <div className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-800">Issue Tracker</h1>
+          <h1 className="font-clash font-semibold text-gray-800 text-2xl">
+            Flagit
+          </h1>
+
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-600">Welcome, {user?.name}</span>
             <button

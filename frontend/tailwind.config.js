@@ -1,7 +1,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        clash: ['"Clash Display"', "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
