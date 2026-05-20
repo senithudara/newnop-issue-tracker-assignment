@@ -10,12 +10,17 @@ const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    //check if user exists
+    if (!isStrongPassword(password)) {
+      return res.status(400).json({
+        message:
+          "Password must be at least 8 characters and include an uppercase letter, a number, and a symbol",
+      });
+    }
+
     const userExists = await User.findOne({ email });
     if (userExists)
       return res.status(400).json({ message: "User already exists" });
 
-    //hash password
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, passwordHash });
 

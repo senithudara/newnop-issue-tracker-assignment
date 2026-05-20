@@ -77,12 +77,20 @@ const createIssue = async (req, res) => {
 // PATCH /api/issues/:id
 const updateIssue = async (req, res) => {
   try {
-    const issue = await Issue.findByIdAndUpdate(req.params.id, req.body, {
+    const issue = await Issue.findById(req.params.id);
+    if (!issue) return res.status(404).json({ message: "Issue not found" });
+
+    if (issue.createdBy.toString() !== req.userId) {
+      return res.status(403).json({
+        message: "Not authorized — you can only edit issues you created",
+      });
+    }
+
+    const updated = await Issue.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-    if (!issue) return res.status(404).json({ message: "Issue not found" });
-    res.json(issue);
+    res.json(updated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -91,8 +99,16 @@ const updateIssue = async (req, res) => {
 // DELETE /api/issues/:id
 const deleteIssue = async (req, res) => {
   try {
-    const issue = await Issue.findByIdAndDelete(req.params.id);
+    const issue = await Issue.findById(req.params.id);
     if (!issue) return res.status(404).json({ message: "Issue not found" });
+
+    if (issue.createdBy.toString() !== req.userId) {
+      return res.status(403).json({
+        message: "Not authorized — you can only delete issues you created",
+      });
+    }
+
+    await Issue.findByIdAndDelete(req.params.id);
     res.json({ message: "Issue deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
