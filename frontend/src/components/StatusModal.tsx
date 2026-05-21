@@ -3,7 +3,7 @@ import type { Issue } from "../types";
 interface Props {
   issue: Issue;
   onClose: () => void;
-  onSubmit: (status: string) => void;
+  onSubmit: (status: "open" | "in_progress" | "resolved" | "closed") => void;
   loading: boolean;
 }
 
