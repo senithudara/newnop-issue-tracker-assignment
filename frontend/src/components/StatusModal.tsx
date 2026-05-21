@@ -8,7 +8,10 @@ interface Props {
 }
 
 const StatusModal = ({ issue, onClose, onSubmit, loading }: Props) => {
-  const statuses = [
+  const statuses: Array<{
+    value: "open" | "in_progress" | "resolved" | "closed";
+    label: string;
+  }> = [
     { value: "open", label: "Open" },
     { value: "in_progress", label: "In Progress" },
     { value: "resolved", label: "Resolved" },
