@@ -5,12 +5,17 @@ interface Props {
   filters: IFilters;
   onFiltersChange: (filters: IFilters) => void;
   onCreateClick: () => void;
+  onExport: () => void;
 }
 
-const IssueFilters = ({ filters, onFiltersChange, onCreateClick }: Props) => {
+const IssueFilters = ({
+  filters,
+  onFiltersChange,
+  onCreateClick,
+  onExport,
+}: Props) => {
   const [searchInput, setSearchInput] = useState(filters.search || "");
 
-  // Debounce search — waits 400ms after user stops typing before firing
   useEffect(() => {
     const timer = setTimeout(() => {
       onFiltersChange({ ...filters, search: searchInput, page: 1 });
@@ -59,6 +64,27 @@ const IssueFilters = ({ filters, onFiltersChange, onCreateClick }: Props) => {
         <option value="high">High</option>
         <option value="critical">Critical</option>
       </select>
+
+      {/* Export button */}
+      <button
+        onClick={onExport}
+        title="Export filtered issues as CSV"
+        className="flex items-center gap-2 px-4 py-2 text-sm border border-gray-300 rounded text-gray-600 hover:bg-gray-50 bg-white/80 whitespace-nowrap"
+      >
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+          />
+        </svg>
+      </button>
 
       <button
         onClick={onCreateClick}

@@ -12,6 +12,7 @@ import StatusModal from "../components/StatusModal";
 import DeleteModal from "../components/DeleteModal";
 import Pagination from "../components/Pagination";
 import Toast from "../components/Toast";
+import { exportToCSV } from "../utils/exportCSV";
 
 const DashboardPage = () => {
   const { user, logout } = useAuthStore();
@@ -96,6 +97,10 @@ const DashboardPage = () => {
     updateMutation.mutate({ id: statusIssue._id, data: { status } });
   };
 
+  const handleExport = () => {
+    exportToCSV(issueData?.issues || []);
+  };
+
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -130,6 +135,7 @@ const DashboardPage = () => {
           filters={filters}
           onFiltersChange={setFilters}
           onCreateClick={() => setShowCreateModal(true)}
+          onExport={handleExport}
         />
 
         {isLoading ? (
