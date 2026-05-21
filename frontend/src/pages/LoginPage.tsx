@@ -33,7 +33,7 @@ const LoginPage = () => {
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden flex">
         <div className="hidden md:flex flex-col w-1/2 bg-gradient-to-br from-blue-600 to-indigo-800 relative overflow-hidden">
           <img
-            src="../../public/dev-image.png"
+            src="/dev-image.png"
             alt="Login page image"
             className="absolute inset-0 w-full h-full object-cover object-center opacity-90"
           />
