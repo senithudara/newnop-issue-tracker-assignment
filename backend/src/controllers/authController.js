@@ -6,6 +6,14 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
+const isStrongPassword = (password) => {
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSymbol = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+  const hasMinLength = password.length >= 8;
+  return hasUppercase && hasNumber && hasSymbol && hasMinLength;
+};
+
 const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
